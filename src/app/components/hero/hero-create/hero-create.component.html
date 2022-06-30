@@ -1,0 +1,47 @@
+<mat-card *ngIf="showCreateHero">
+  <mat-card-title> Novo Herói </mat-card-title>
+  <form [formGroup]="formHero">
+    <mat-form-field class="botaocriar">
+      <input matInput placeholder="Nome" formControlName="name" required/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Poderes</mat-label>
+      <mat-select formControlName="power" multiple required>
+        <mat-option *ngFor="let power of powerList" [value]="power">{{
+          power.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <input
+      style="margin-left: 2.5%"
+      type="file"
+      (change)="inputFileChange($event)"
+    />
+  </form>
+</mat-card>
+<div class="hero-create">
+  <button
+    *ngIf="!showCreateHero"
+    class="buttoncreate"
+    mat-raised-button
+    (click)="showCreateHero = !showCreateHero"
+  >
+    Criar Herói
+  </button>
+  <button
+    *ngIf="showCreateHero"
+    mat-raised-button
+    (click)="showCreateHero = !showCreateHero"
+    (click)="addHero()"
+    [disabled]="!formHero.valid"
+  >
+    Adicionar
+  </button>
+  <button
+    *ngIf="showCreateHero"
+    mat-raised-button
+    (click)="showCreateHero = !showCreateHero"
+  >
+    Cancelar
+  </button>
+</div>

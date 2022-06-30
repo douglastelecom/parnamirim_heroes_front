@@ -1,0 +1,81 @@
+<div class="homebg">
+  <mat-card *ngIf="!showDuelo" class="home mat-elevation-z3">
+    <mat-card-title class="title">Bem-vindo!</mat-card-title>
+    <mat-card-subtitle class="subtitle">
+      Cadastre seus heróis e poderes para promover um duelo!
+    </mat-card-subtitle>
+  </mat-card>
+
+  <button
+    *ngIf="!showDuelo"
+    (click)="showDuelo = !showDuelo"
+    (click)="duelo()"
+    mat-raised-button
+    style="margin: 5px"
+  >
+    Criar um Duelo
+  </button>
+  <div *ngIf="showDuelo" style="display: flex; flex-direction: row">
+    <div style="margin: 20px">
+      <h4>Primeiro herói</h4>
+      <mat-form-field>
+        <mat-label>Herói 1</mat-label>
+        <mat-select [formControl]="topping1">
+          <mat-option *ngFor="let h of heroes" [value]="h.id">
+            {{ h.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <img src="../../../assets/img/vs.png" style="max-width: 8%" />
+
+    <div style="margin: 20px">
+      <h4>Segundo herói</h4>
+      <mat-form-field>
+        <mat-label>Herói 2</mat-label>
+        <mat-select [formControl]="topping2">
+          <mat-option *ngFor="let h of heroes" [value]="h.id">
+            {{ h.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div *ngIf="showLoad && showDuelo" style="margin-left: 16.8%">
+    <h4>Simulando confronto...</h4>
+    <mat-spinner style="margin-left: 1.45%"></mat-spinner>
+  </div>
+  <div *ngIf="showWinner" style="margin-left: 16.8%">
+    <mat-card style="width: 25%;"
+      class="home mat-elevation-z3"
+      style="max-width: 23%; text-align: center; margin-left: -7%"
+    >
+      <img style="width: 80%;" src="{{showPicture}}" />
+      <p>
+      {{ showname }}
+      </p>
+    </mat-card>
+  </div>
+  <div style="margin-left: 13.5%">
+    <button
+      *ngIf="showDuelo"
+      (click)="duelar()"
+      mat-raised-button
+      style="margin: 5px"
+    >
+      Iniciar Duelo
+    </button>
+
+    <button
+      *ngIf="showDuelo"
+      (click)="showDuelo = false"
+      (click)="showLoad = false"
+      (click)="showWinner = false"
+      mat-raised-button
+      style="margin: 5px"
+    >
+      Voltar
+    </button>
+  </div>
+</div>
